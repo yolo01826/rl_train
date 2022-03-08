@@ -165,7 +165,7 @@ def evaluate_policy(env_name, algo, policy_path, n_episodes=100, coop=False, see
         forces.append(np.mean(force_list))
         task_successes.append(task_success)
         if verbose:
-            print('Reward total: %.2f, mean force: %.2f, task success: %r' % (reward_total, np.mean(force_list), task_success))
+            print('Reward total: %.2f, mean force: %.2f, task already success: %r' % (reward_total, np.mean(force_list), task_success))
         sys.stdout.flush()
     env.disconnect()
 
