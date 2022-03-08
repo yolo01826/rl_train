@@ -31,7 +31,7 @@ class FeedingEnv(AssistiveEnv):
         # print(self.config('distance_weight')*reward_distance_mouth_target, self.config('action_weight')*reward_action, self.config('food_reward_weight')*reward_food, preferences_score)
 
         if self.gui and reward_food != 0:
-            print('Task success:', self.task_success, 'Food reward:', reward_food)
+            print('Task success hhhh:', self.task_success, 'Food reward:', reward_food)
 
         info = {'total_force_on_human': self.total_force_on_human, 'task_success': int(self.task_success >= self.total_food_count*self.config('task_success_threshold')), 'action_robot_len': self.action_robot_len, 'action_human_len': self.action_human_len, 'obs_robot_len': self.obs_robot_len, 'obs_human_len': self.obs_human_len}
         done = self.iteration >= 200
