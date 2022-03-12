@@ -115,7 +115,8 @@ class FeedingEnv(AssistiveEnv):
         spoon_pos_real, spoon_orient_real = self.robot.convert_to_realworld(spoon_pos, spoon_orient)
         head_pos, head_orient = self.human.get_pos_orient(self.human.head)
         head_pos_real, head_orient_real = self.robot.convert_to_realworld(head_pos, head_orient)
-        print(spoon_pos_real,spoon_orient_real)
+        print(spoon_pos_real)
+        print(spoon_orient_real)
     def reset(self):
         super(FeedingEnv, self).reset()
         self.build_assistive_env('wheelchair')
