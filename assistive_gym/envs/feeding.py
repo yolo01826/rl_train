@@ -110,7 +110,12 @@ class FeedingEnv(AssistiveEnv):
             # Co-optimization with both human and robot controllable
             return {'robot': robot_obs, 'human': human_obs}
         return robot_obs
-
+    def get_direction_reward(self):
+        spoon_pos, spoon_orient = self.tool.get_base_pos_orient()
+        spoon_pos_real, spoon_orient_real = self.robot.convert_to_realworld(spoon_pos, spoon_orient)
+        head_pos, head_orient = self.human.get_pos_orient(self.human.head)
+        head_pos_real, head_orient_real = self.robot.convert_to_realworld(head_pos, head_orient)
+        print(spoon_pos_real,spoon_orient_real)
     def reset(self):
         super(FeedingEnv, self).reset()
         self.build_assistive_env('wheelchair')
