@@ -4,6 +4,7 @@ import pybullet as p
 from .env import AssistiveEnv
 from .agents import furniture
 from .agents.furniture import Furniture
+from scipy.spatial.transform import Rotation as R
 
 class FeedingEnv(AssistiveEnv):
     def __init__(self, robot, human):
@@ -118,10 +119,12 @@ class FeedingEnv(AssistiveEnv):
     def get_direction_reward(self):
         spoon_pos, spoon_orient = self.tool.get_base_pos_orient()
         spoon_pos_real, spoon_orient_real = self.robot.convert_to_realworld(spoon_pos, spoon_orient)
+        spoon_orient_real_euler = R.from_quat(spoon_orient_real).as_euler('xyz')
         head_pos, head_orient = self.human.get_pos_orient(self.human.head)
         head_pos_real, head_orient_real = self.robot.convert_to_realworld(head_pos, head_orient)
-        print(spoon_pos_real)
-        print(spoon_orient_real)
+        head_orient_real_euler = R.from_quat(head_orient_real).as_euler('xyz')
+        print("spoon pos is :"+spoon_pos_real+","+spoon_orient_real)
+        print("head pos is :"+head_pos_real+","+head_orient_real)
     def reset(self):
         super(FeedingEnv, self).reset()
         self.build_assistive_env('wheelchair')
