@@ -123,8 +123,8 @@ class FeedingEnv(AssistiveEnv):
         head_pos, head_orient = self.human.get_pos_orient(self.human.head)
         head_pos_real, head_orient_real = self.robot.convert_to_realworld(head_pos, head_orient)
         head_orient_real_euler = R.from_quat(head_orient_real).as_euler('xyz')
-        print("spoon pos is :"，spoon_orient_real_euler)
-        print("head pos is :"，head_orient_real_euler)
+        print(spoon_orient_real_euler)
+        #print("head pos is :"，head_orient_real_euler)
     def reset(self):
         super(FeedingEnv, self).reset()
         self.build_assistive_env('wheelchair')
