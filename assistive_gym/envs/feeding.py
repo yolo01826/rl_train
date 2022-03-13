@@ -21,7 +21,7 @@ class FeedingEnv(AssistiveEnv):
         
         
         #Test for assighnment1
-        self.get_direction_reward()
+        direction_reward=self.get_direction_reward()
         # Get human preferences
         
         
@@ -33,7 +33,7 @@ class FeedingEnv(AssistiveEnv):
         reward_distance_mouth_target = -np.linalg.norm(self.target_pos - spoon_pos) # Penalize robot for distance between the spoon and human mouth.
         reward_action = -np.linalg.norm(action) # Penalize actions
 
-        reward = self.config('distance_weight')*reward_distance_mouth_target + self.config('action_weight')*reward_action + self.config('food_reward_weight')*reward_food + preferences_score
+        reward = direction_reward+self.config('distance_weight')*reward_distance_mouth_target + self.config('action_weight')*reward_action + self.config('food_reward_weight')*reward_food + preferences_score
         # print(self.config('distance_weight')*reward_distance_mouth_target, self.config('action_weight')*reward_action, self.config('food_reward_weight')*reward_food, preferences_score)
 
         if self.gui and reward_food != 0:
@@ -123,7 +123,10 @@ class FeedingEnv(AssistiveEnv):
         head_pos, head_orient = self.human.get_pos_orient(self.human.head)
         head_pos_real, head_orient_real = self.robot.convert_to_realworld(head_pos, head_orient)
         head_orient_real_euler = R.from_quat(head_orient_real).as_euler('xyz')
-        print(spoon_orient_real_euler)
+        reward_direction_mouth_target = -np.linalg.norm(spoon_orient_real_euler - head_orient_real_euler)
+        return reward_direction_mouth_target
+    
+        #print(spoon_orient_real_euler)
         #print("head pos is :"，head_orient_real_euler)
     def reset(self):
         super(FeedingEnv, self).reset()
