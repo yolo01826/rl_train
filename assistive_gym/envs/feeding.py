@@ -15,10 +15,15 @@ class FeedingEnv(AssistiveEnv):
         self.take_step(action)
 
         obs = self._get_obs()
-
+          
         reward_food, food_mouth_velocities, food_hit_human_reward = self.get_food_rewards()
-
+        
+        
+        #Test for assighnment1
+        self.get_direction_reward()
         # Get human preferences
+        
+        
         end_effector_velocity = np.linalg.norm(self.robot.get_velocity(self.robot.right_end_effector))
         preferences_score = self.human_preferences(end_effector_velocity=end_effector_velocity, total_force_on_human=self.total_force_on_human, tool_force_at_target=self.spoon_force_on_human, food_hit_human_reward=food_hit_human_reward, food_mouth_velocities=food_mouth_velocities)
 
